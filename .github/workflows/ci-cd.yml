@@ -13,7 +13,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{secrets.ROOT_PASSWORD}}
           MYSQL_DATABASE: ${{secrets.DATABASE}}
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -p${{secrets.ROOT_PASSWORD}}"
+          --health-cmd="mysqladmin ping -h localhost -proot"
           --health-interval=5s
           --health-timeout=3s
           --health-retries=5
