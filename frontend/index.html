@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Frontend</title>
+</head>
+<body>
+
+  <h1>Frontend is running</h1>
+
+  <button onclick="callBackend()">Check Backend</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function callBackend() {
+      try {
+        const res = await fetch("http://localhost:5000/");
+        const data = await res.text();
+        document.getElementById("result").innerText = data;
+      } catch (err) {
+        document.getElementById("result").innerText = "Error connecting to backend";
+      }
+    }
+  </script>
+
+</body>
+</html>
