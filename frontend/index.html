@@ -3,6 +3,7 @@
 <head>
   <title>Frontend</title>
 </head>
+
 <body>
 
   <h1>Frontend is running</h1>
@@ -14,11 +15,21 @@
   <script>
     async function callBackend() {
       try {
-        const res = await fetch("http://localhost:5000/");
-        const data = await res.text();
-        document.getElementById("result").innerText = data;
+        const res = await fetch("http://localhost:5000/api/data");
+
+        if (!res.ok) {
+          throw new Error("HTTP error " + res.status);
+        }
+
+        const data = await res.json();
+
+        document.getElementById("result").innerText =
+          JSON.stringify(data, null, 2);
+
       } catch (err) {
-        document.getElementById("result").innerText = "Error connecting to backend";
+        document.getElementById("result").innerText =
+          "Error connecting to backend";
+        console.error(err);
       }
     }
   </script>
