@@ -40,11 +40,16 @@ jobs:
 
       - name: Wait for MySQL
         run: |
-          for i in {1..20}; do
-            mysqladmin ping -h 127.0.0.1 -proot --silent && break
-            echo "Waiting for MySQL..."
+          for i in {1..10}; do
+            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
+              echo "MySql is ready..."
+              exit 0
+            fi
+            echo "waiting for MySql.."
             sleep 3
           done
+          echo "Failed to start MySql.."
+          exit 1
 
       - name: Test Backend (DB Connection ONLY)
         env:
