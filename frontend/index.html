@@ -24,7 +24,7 @@
         const data = await res.json();
 
         document.getElementById("result").innerText =
-          JSON.stringify(data, null, 2);
+          document.getElementById("result").innerText = data.data[0][0];
 
       } catch (err) {
         document.getElementById("result").innerText =
