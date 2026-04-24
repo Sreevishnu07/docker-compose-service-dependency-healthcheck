@@ -28,5 +28,5 @@ conn = connect()
 def home():
     return "Backend is running and DB connected!"
 
-if __name__ == "__main__" and os.getenv("RUN SERVER")!="false":
+if __name__ == "__main__" and os.getenv("RUN_SERVER")!="false":
     app.run(host="0.0.0.0", port=5000)
