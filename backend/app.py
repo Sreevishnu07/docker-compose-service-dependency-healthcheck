@@ -7,8 +7,9 @@ import time
 app = Flask(__name__)
 CORS(app)
 
-def connect():
-    while True:
+def connect(max_retries=10):
+    retries = 0
+    while retries < max_retries:
         try:
             conn = mysql.connector.connect(
                 host=os.getenv("DB_HOST"),
@@ -21,12 +22,16 @@ def connect():
         except:
             print("Waiting for DB...")
             time.sleep(2)
+            retries += 1
 
-conn = connect()
+    raise Exception("Database connection failed")
 
 @app.route("/")
 def home():
     return "Backend is running and DB connected!"
 
-if __name__ == "__main__" and os.getenv("RUN_SERVER")!="false":
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    conn = connect()
+
+    if os.getenv("RUN_SERVER") != "false":
+        app.run(host="0.0.0.0", port=5000)
