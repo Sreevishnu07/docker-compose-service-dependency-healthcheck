@@ -19,8 +19,8 @@ def connect(max_retries=10):
             )
             print("Connected to DB")
             return conn
-        except:
-            print("Waiting for DB...")
+        except Exception as e:
+            print("Waiting for DB...", e)
             time.sleep(2)
             retries += 1
 
@@ -32,4 +32,7 @@ def home():
 
 if __name__ == "__main__":
     conn = connect()
-    app.run(host="0.0.0.0", port=5000)
+    print("DB connection test passed")
+
+    if os.getenv("RUN_SERVER") == "true":
+        app.run(host="0.0.0.0", port=5000)
