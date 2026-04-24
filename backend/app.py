@@ -35,8 +35,9 @@ def connect(max_retries=10):
 def data():
     cursor = conn.cursor()
     cursor.execute("SELECT 'Hello from MySQL' AS message")
-    result = cursor.fetchall()
-    return {"data": result}
+    result = cursor.fetchone()
+    cursor.close()
+    return result[0]  
 
 
 if __name__ == "__main__":
